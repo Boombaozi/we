@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<footer th:fragment="footer">
+    <a>WELCOME TO WE</a>
+
+    <!-- Bootstrap core JavaScript
+================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+   <script src="../../static/js/jquery-3.1.1.min.js"   th:src="@{/js/jquery-3.1.1.min.js}"     ></script>
+    <script src="../../static/js/bootstrap.min.js"  th:src="@{/js/bootstrap.min.js}"      ></script>
+    <script src="../../static/js/feather.min.js" th:src="@{/js/feather.min.js}"> </script>
+    <script>
+        feather.replace()
+    </script>
+    <script src="../../js/thymeleaf-bootstrap-paginator.js" th:src="@{/js/thymeleaf-bootstrap-paginator.js}"></script>
+</footer>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body>
+
+
+
+
+    <!--<h5>有 session</h5>-->
+    <!--<h5  th:text="${#session.getAttribute('user')}">有 session</h5>-->
+    <!--<h5  th:text="${#session.getAttribute('user').id}">有 session</h5>-->
+    <!--<h5  th:text="${#session.getAttribute('user').username}">有 session</h5>-->
+    <!--<h5  th:text="${#session.getAttribute('user').showname}">有 session</h5>-->
+<!--</div>-->
+
+
+    <div>
+        <h2>request</h2>
+        <h5 th:text="'request.getAttributeNames    :'+(${#request.getAttributeNames()})"> </h5>
+        <h5 th:text="'request.getCookies           :'+(${#request.getCookies()})">  </h5>
+        <h5 th:text="'request.getContextPath       :'+(${#request.getContextPath()})">  </h5>
+        <h5 th:text="'request.getRequestURI()       :'+(${#request.getRequestURI()})">  </h5>
+        <h5 th:text="'request.getLocalName         :'+(${#request.getLocalName()})">  </h5>
+        <h5 th:text="'request.getLocalAddr         :'+(${#request.getLocalAddr()})">  </h5>
+        <h5 th:text="'request.getRemoteHost         :'+(${#request.getRemoteHost()})">  </h5>
+        <h5 th:text="'request.getRemoteUser        :'+(${#request.getRemoteUser()})">  </h5>
+        <h5 th:text="'request.getQueryString       :'+(${#request.getQueryString()})">  </h5>
+    </div>
+
+</body>
+</html>

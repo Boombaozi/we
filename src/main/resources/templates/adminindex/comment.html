@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>WE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<div th:replace="~{adminfragments/header :: header}"> </div>
+<main    role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+
+
+    <div id="commentlistreplace">
+    </div>
+
+
+<div th:replace="~{adminfragments/footer :: footer}"> </div>
+<!-- Graphs -->
+</main>
+
+
+
+<script src="../../js/admin/comment.js" th:src="@{/js/admin/comment.js}"></script>
+
+<!--container-->
+</body>
+</html>

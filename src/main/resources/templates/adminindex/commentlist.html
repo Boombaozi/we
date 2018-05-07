@@ -1,0 +1,54 @@
+<!--CREATE TABLE comment-->
+<!--(-->
+<!--id             INT AUTO_INCREMENT    PRIMARY KEY,-->
+<!--groupid        INT     NULL,-->
+<!--authorid       INT     NOT NULL,-->
+<!--authorinfo       VARCHAR(100)     NULL,-->
+<!--content         VARCHAR(300)         NOT NULL,-->
+<!--ischecked      VARCHAR(1) DEFAULT '1'            COMMENT '预留，1表示已检查' ,-->
+<!--status VARCHAR(1) DEFAULT '1' COMMENT '类别状态1-正常',-->
+<!--createtime DATETIME     NOT NULL     COMMENT '创建时间',-->
+<!--updatetime DATETIME     NOT NULL     COMMENT '最后一次更新时间'-->
+<!--);-->
+<div id="commentlist" >
+    <table class="table table-sm table-condensed table-hover">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">groupid</th>
+            <th scope="col">authorid</th>
+            <th scope="col">authorinfo</th>
+            <th scope="col">content</th>
+            <th scope="col">ischecked</th>
+            <th scope="col">status</th>
+            <th scope="col">createtime</th>
+            <th scope="col">updatetime</th>
+        </tr>
+        </thead>
+        <h th:text="${Model.title}"></h>
+        </tr>
+        <tr th:if="${Model.commentlist.size() eq 0}">
+            <td colspan="3">没有用户数据</td>
+        </tr>
+        <tr th:each="comment : ${Model.commentlist}">
+
+            <td th:text="${comment.id}"></td>
+            <td th:text="${comment.groupid}"></td>
+            <td th:text="${comment.authorid}"></td>
+            <td th:text="${comment.authorinfo}"></td>
+            <td th:text="${comment.content}"></td>
+            <td th:text="${comment.ischecked}"></td>
+            <td th:text="${comment.status}"></td>
+            <td th:text="${comment.createtime}"></td>
+            <td th:text="${comment.updatetime}"></td>
+            <td><a th:href="@{'/admin/comment/delete/'+${comment.id}}">删除</a></td>
+            <td><a th:href="@{'/admin/comment/recover/'+${comment.id}}">恢复</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:replace="~{fragments/page :: page}">...</div>
+    <script src="../../js/admin/commentlist.js" th:src="@{/js/admin/commentlist.js}"></script>
+
+
+</div>

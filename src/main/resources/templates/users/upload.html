@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>we</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"> </div>
+<div class="container">
+
+    <img class="img-thumbnail rounded-circle border border-dark img-fluid" style="width: 100px;height: 100px;"
+         th:src="${#session.getAttribute('user').image}">
+    <form enctype="multipart/form-data" method="post" action="/file">
+        头像图片<input type="file" name="file"/>
+        <input type="submit" value="上传"/>
+    </form>
+
+    <div th:replace="~{fragments/footer :: footer}"> </div>
+</div>
+<!--container-->
+
+</body>
+</html>

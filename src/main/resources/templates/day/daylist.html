@@ -1,0 +1,80 @@
+<div id="daylist">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="VivaTimeline">
+                    <dl th:if="${Model.daylist.size() eq 0}">
+                        <h5>没有数据</h5>
+                    </dl>
+
+                    <dl  th:each="day : ${Model.daylist}">
+
+                        <dd class="pos-left clearfix">
+                            <div class="circ"></div>
+                            <div class="time"  th:text="${day.time}" >时间 </div>
+                            <div class="events">
+                                <div class="events-header"  th:text="${day.title}" > title</div>
+                                <div class="events-body">
+                                    <div class="row">
+                                        <div class="col-md-6 pull-left">
+                                            <img class="events-object img-fluid img-rounded"  th:src="${day.image}"/>
+                                        </div>
+                                        <div class="events-desc"  th:text="${day.content}" >
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                                            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                        </div>
+                                    </div>
+
+                                    <!--<div class="row">-->
+                                        <!--<div class="col-md-6 pull-left">-->
+                                            <!--<img class="events-object img-responsive img-rounded"  th:src="${day.image}"/>-->
+                                        <!--</div>-->
+                                        <!--<div class="events-desc" >-->
+                                            <!--Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod-->
+                                            <!--tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,-->
+                                            <!--quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo-->
+                                            <!--consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse-->
+                                            <!--cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat-->
+                                            <!--non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="row">-->
+                                        <!--<div class="col-md-6 pull-left">-->
+                                            <!--<img class="events-object img-responsive img-rounded"  th:src="${day.image}"/>-->
+                                        <!--</div>-->
+                                        <!--<div class="events-desc"  th:text="${day.content}" >-->
+                                            <!--Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod-->
+                                            <!--tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,-->
+                                            <!--quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo-->
+                                            <!--consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse-->
+                                            <!--cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat-->
+                                            <!--non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                </div>
+                                <div class="events-footer">
+                                </div>
+                            </div>
+                        </dd>
+
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{fragments/page :: page}">...</div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.VivaTimeline').vivaTimeline({
+                carousel: true,
+                carouselTime: 3000
+            });
+        });
+    </script>
+
+</div>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      th:fragment="header">
+<head>
+    <meta charset="UTF-8">
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="../../static/css/bootstrap-grid.min.css" th:href="@{/css/bootstrap-grid.min.css}" rel="stylesheet">
+    <link href="../../static/css/bootstrap-reboot.min.css" th:href="@{/css/bootstrap-reboot.min.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div>
+    <!--  rounded-->
+    <nav class="navbar sticky-top navbar-light bg-light navbar-expand-lg ">
+        <a class="navbar-brand" href="/">We</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09"
+                aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExample09">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/day">纪念日 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/image">相册</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/comment">留言板</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#" id="dropdown" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">设置</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown">
+                        <a class="dropdown-item  disabled" href="/">设置</a>
+                        <a class="dropdown-item" href="/users/groupuser">成员信息</a>
+                        <a class="dropdown-item  disabled" href="/comment/deletelist">回收站</a>
+                    </div>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/about">关于</a>
+                </li>
+            </ul>
+
+            <form class="form-inline my-2 my-md-0">
+                <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+                <input class="btn btn-secondary my-2 my-sm-0" type="submit">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</input>
+            </form>
+
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#" id="dropdown01"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img class="rounded-circle img-fluid border border-dark" style="width: 32px;height: 32px;"
+                             th:src="${#session.getAttribute('user').image}"
+                             th:text="${#session.getAttribute('user').username}"></a>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="/users/edit">个人设置</a>
+                        <a class="dropdown-item  disabled" href="#">总览</a>
+                        <a class="dropdown-item" href="/users/loginout">退出</a>
+                        <a class="dropdown-item" href="/admin">管理员登录</a>
+                    </div>
+                </li>
+                <!--<li class="nav-item">-->
+                <!--<a class="btn btn-outline-primary" href="/users/sign_in">登录</a>-->
+                <!--</li>-->
+                <!--<li class="nav-item">-->
+                <!--<a class="btn btn-outline-primary" href="/users/sign_up">注册</a>-->
+                <!--</li>-->
+            </ul>
+
+        </div>
+    </nav>
+</div>

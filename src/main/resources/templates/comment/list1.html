@@ -1,0 +1,58 @@
+
+
+
+
+
+<div id="mainContainerRepleace" >
+<div class="row">
+    <p th:text="${Model.title}">页面头部</p>
+</div>
+
+<div class="row">
+    <div class="col-md-12" th:if="${Model.commentList.size() eq 0}">
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+            <div class="card-body">
+                <h4 class="card-title">木有留言 :( </h4>
+                <p class="card-text"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12" th:each="comment : ${Model.commentList}">
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">
+                <div class="row">
+                <p th:text="${comment.createtime}+'      '+${comment.authorid}">time</p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <a th:href="@{'/comment/delete/'+${comment.id}}"><span data-feather="trash-2"></span></a>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <p  class="card-text"  th:text="${comment.content}">留言内容</p>
+
+            </div>
+        </div>
+    </div>
+
+    <div col-md-12 th:replace="~{fragments/page :: page}">...</div>
+
+    <script src="../../js/comment/main.js" th:src="@{/js/comment/main.js}"></script>
+    <script src="../../js/feather.min.js" th:src="@{/js/feather.min.js}"> </script>
+    <script>
+        feather.replace()
+    </script>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

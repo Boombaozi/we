@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{css/plugins/blueimp-gallery.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{css/plugins/font-awesome.css}" rel="stylesheet">
+    <link th:href="@{css/plugins/animate.css}" rel="stylesheet">
+    <link th:href="@{css/plugins/style.css}"  rel="stylesheet">
+
+    <style>
+        .lightBoxGallery img {
+            margin: 5px;
+            width: 160px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"> </div>
+
+
+
+<div class="row">
+
+    <div  id="imagelistreplace" class="gray-bg col-md-12" >
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"> </div>
+<script src="../../js/image/image.js" th:src="@{/js/image/image.js}"></script>
+<!-- blueimp gallery -->
+<script th:src="@{/js/plugins/jquery.blueimp-gallery.min.js}"></script>
+
+</body>
+</html>

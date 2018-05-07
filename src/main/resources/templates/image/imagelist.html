@@ -1,0 +1,40 @@
+<div id="imagelist">
+
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-md-12">
+                <!--class="gray-bg"-->
+                <div class="ibox ">
+
+                    <div class="ibox-content">
+
+                        <h2>相册</h2>
+
+                        <div class="lightBoxGallery" >
+
+                            <figure class="figure" th:each="image : ${Model.imagelist}">
+                                <a   th:href="${image.image}" title="图片" data-gallery="" ><img class="img-fluid " th:src="${image.image}"></a>
+                                <figcaption class="figure-caption text-right" th:text="${image.updatetime}">A caption for the above image.</figcaption>
+                            </figure>
+
+                        </div>
+
+
+                        <div id="blueimp-gallery" class="blueimp-gallery">
+                            <div class="slides"></div>
+                            <h3 class="title"></h3>
+                            <a class="prev">‹</a>
+                            <a class="next">›</a>
+                            <a class="close">×</a>
+                            <a class="play-pause"></a>
+                            <ol class="indicator"></ol>
+                        </div>
+                        <div th:replace="~{fragments/page :: page}">...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div><a  th:href="${image.image}" ><img th:src="${image.image}"></a></div>
