@@ -1,9 +1,7 @@
 package com.boombz.blog.controller;
 
 import com.boombz.blog.domain.File;
-import com.boombz.blog.repository.FileRepository;
-import com.boombz.blog.serviceTest.FileService;
-import com.boombz.blog.util.FileUtil;
+import com.boombz.blog.service.FileService;
 import com.boombz.blog.util.MD5Util;
 import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +68,6 @@ public class FileController {
                                   RedirectAttributes redirectAttributes,
                                   HttpServletRequest request,
                                   HttpSession session) {
-
         try {
             File f = new File(file.getOriginalFilename(), file.getContentType(), file.getSize(),
                     new Binary(file.getBytes()));
@@ -81,11 +78,10 @@ public class FileController {
             redirectAttributes.addFlashAttribute("message", "Your " + file.getOriginalFilename() + " is wrong!");
             return "redirect:/file";
         }
-
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 
-        return "redirect:/file";
+        return "redirect:/image";
     }
     /**
      * 显示文件

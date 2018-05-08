@@ -1,4 +1,4 @@
-package com.boombz.blog.serviceTest;
+package com.boombz.blog.service;
 
 import com.boombz.blog.domain.User;
 import com.boombz.blog.util.ServerResponse;
@@ -12,8 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

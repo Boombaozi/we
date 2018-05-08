@@ -1,4 +1,4 @@
-package com.boombz.blog.serviceTest;
+package com.boombz.blog.service;
 
 import com.boombz.blog.domain.Image;
 import com.boombz.blog.repository.ImageRepository;

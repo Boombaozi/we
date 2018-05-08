@@ -1,8 +1,7 @@
 package com.boombz.blog.admin;
 
-import com.boombz.blog.domain.Comment;
 import com.boombz.blog.domain.User;
-import com.boombz.blog.serviceTest.UserService;
+import com.boombz.blog.service.UserService;
 import com.boombz.blog.util.ServerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

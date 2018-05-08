@@ -3,7 +3,7 @@ package com.boombz.blog.controller;
 import com.boombz.blog.domain.User;
 
 
-import com.boombz.blog.serviceTest.UserServiceImpl;
+import com.boombz.blog.service.UserServiceImpl;
 import com.boombz.blog.util.ServerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.Date;
 import java.util.List;
 
 /**

@@ -3,8 +3,8 @@ package com.boombz.blog.controller;
 
 import com.boombz.blog.domain.Comment;
 import com.boombz.blog.domain.User;
-import com.boombz.blog.serviceTest.CommentServiceImpl;
-import com.boombz.blog.serviceTest.UserServiceImpl;
+import com.boombz.blog.service.CommentServiceImpl;
+import com.boombz.blog.service.UserServiceImpl;
 import com.boombz.blog.util.ServerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,12 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;

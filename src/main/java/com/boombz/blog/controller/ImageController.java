@@ -2,8 +2,7 @@ package com.boombz.blog.controller;
 
 import com.boombz.blog.domain.Image;
 import com.boombz.blog.domain.User;
-import com.boombz.blog.serviceTest.DayServiceImpl;
-import com.boombz.blog.serviceTest.ImageService;
+import com.boombz.blog.service.ImageService;
 import com.boombz.blog.util.ServerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,7 +34,7 @@ public class ImageController {
     @GetMapping
     public ModelAndView list(@RequestParam(value = "async", required = false) boolean async,
                              @RequestParam(value = "pageIndex", required = false, defaultValue = "0") int pageIndex,
-                             @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
+                             @RequestParam(value = "pageSize", required = false, defaultValue = "20") int pageSize,
                              Model model,
                              HttpSession session) {
 

@@ -1,23 +1,17 @@
 /**
  * 
  */
-package com.boombz.blog.serviceTest;
+package com.boombz.blog.service;
 
 
 import com.boombz.blog.domain.File;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
-/**
- * File 服务接口.
- * 
- * @since 1.0.0 2017年3月28日
- * @author <a href="https://waylau.com">Way Lau</a> 
- */
+
 public interface FileService {
 	/**
 	 * 保存文件
@@ -48,8 +42,15 @@ public interface FileService {
 	 */
 	List<File> findAllFile(int pageIndex, int pageSize);
 
-
+	//保存用户相册图片
 	File saveImage(File file, HttpSession session, HttpServletRequest request);
 
+	//保存用户头像
 	File saveUserImage(File file,HttpSession session,HttpServletRequest request);
+
+	File saveDayImage(File file,HttpSession session,
+					  HttpServletRequest request,
+					  String title,
+					  String content,
+					  Date time);
 }

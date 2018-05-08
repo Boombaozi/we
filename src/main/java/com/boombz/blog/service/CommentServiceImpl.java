@@ -1,11 +1,9 @@
-package com.boombz.blog.serviceTest;
+package com.boombz.blog.service;
 
 import com.boombz.blog.domain.Comment;
 import com.boombz.blog.domain.User;
 import com.boombz.blog.repository.CommentRepository;
 import com.boombz.blog.util.ServerResponse;
-import com.boombz.blog.util.infoRecord;
-import com.boombz.blog.vo.CommentVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,11 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class CommentServiceImpl implements CommentService {

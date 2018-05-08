@@ -1,13 +1,11 @@
-package com.boombz.blog.serviceTest;
+package com.boombz.blog.service;
 
 import com.boombz.blog.domain.Comment;
 import com.boombz.blog.util.ServerResponse;
-import com.boombz.blog.vo.CommentVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 

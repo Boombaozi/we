@@ -1,4 +1,4 @@
-package com.boombz.blog.serviceTest;
+package com.boombz.blog.service;
 
 import com.boombz.blog.domain.User;
 import com.boombz.blog.repository.UserRepository;
@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 

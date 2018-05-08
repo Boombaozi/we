@@ -1,9 +1,13 @@
-package com.boombz.blog.serviceTest;
+package com.boombz.blog.service;
 
 
+import com.boombz.blog.domain.Day;
 import com.boombz.blog.domain.File;
+import com.boombz.blog.domain.Image;
 import com.boombz.blog.domain.User;
+import com.boombz.blog.repository.DayRepository;
 import com.boombz.blog.repository.FileRepository;
+import com.boombz.blog.repository.ImageRepository;
 import com.boombz.blog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,13 +25,8 @@ import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
+//文件相关服务
 
-/**
- * File 服务.
- *
- * @author <a href="https://waylau.com">Way Lau</a>
- * @since 1.0.0 2017年7月30日
- */
 @Service
 public class FileServiceImpl implements FileService {
 
@@ -37,7 +36,11 @@ public class FileServiceImpl implements FileService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ImageRepository imageRepository;
 
+    @Autowired
+    private DayRepository dayRepository;
 
     @Override
     public File saveFile(File file) {
@@ -68,8 +71,27 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
+    @Transactional
     public File saveImage(File file, HttpSession session, HttpServletRequest request) {
-        return fileRepository.save(file);
+        String url = "http://" + request.getServerName() //服务器地址
+                + ":"
+                + request.getServerPort()//端口号
+                + request.getContextPath()+"/file/view/"   ;   //项目名称
+
+        File f = fileRepository.save(file);
+        System.out.println("file" + f.toString());
+        User user = (User) session.getAttribute("user");
+        Image image=new Image();
+        image.setCreatetime(new Date());
+        image.setUpdatetime(new Date());
+        image.setAuthorid(user.getId());
+        image.setImage(url + f.getId());
+        image.setStatus("1");
+        image.setIschecked("1");
+        image.setGroupid(user.getGroupid());
+        System.out.println("更新的信息 :" + image);
+        Image image1 = imageRepository.save(image);
+        return f;
     }
 
     @Override
@@ -88,6 +110,36 @@ public class FileServiceImpl implements FileService {
         user.setUpdatetime(new Date());
         System.out.println("更新的信息 :" + user);
         User user1 = userRepository.save(user);
+        return f;
+    }
+
+    @Override
+    @Transactional
+    public File saveDayImage(File file, HttpSession session,
+                             HttpServletRequest request,
+                             String title,
+                             String content,
+                             Date time) {
+        String url = "http://" + request.getServerName() //服务器地址
+                + ":"
+                + request.getServerPort()//端口号
+                + request.getContextPath()+"/file/view/"   ;   //项目名称
+
+        File f = fileRepository.save(file);
+        System.out.println("file" + f.toString());
+        User user = (User) session.getAttribute("user");
+        Day day =new Day();
+        day.setCreatetime(new Date());
+        day.setUpdatetime(new Date());
+        day.setStatus("1");
+        day.setIschecked("1");
+        day.setImage(url + f.getId());
+        day.setTitle(title);
+        day.setTime(time);
+        day.setContent(content);
+        day.setGroupid(user.getGroupid());
+        System.out.println("更新的信息 :" + day);
+        dayRepository.save(day);
         return f;
     }
 }
