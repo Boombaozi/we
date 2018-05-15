@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
                     + ":"
                     + request.getServerPort()//端口号
                     + request.getContextPath()+"/users/register2";
-            message.setText("欢迎注册we账号 :) 请点击下面链接完成激活 "+url+"?code="+user.getCode());
+            message.setText(user.getUsername()+" 欢迎注册we账号 :) 请点击下面链接完成激活 "+url+"?code="+user.getCode());
             mailSender.send(message);
 
         } catch (Exception e) {

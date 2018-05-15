@@ -34,13 +34,13 @@ apply plugin: 'io.spring.dependency-management'
 
 jar {
 	baseName = 'we'
-	version = '0.8.0'
+	version = '0.8.1'
 }
 
 //组织名称
 group = 'com.boombz'
 //项目版本
-version = '0.8.0'
+version = '0.8.1'
 sourceCompatibility = 1.8
 
 repositories {
