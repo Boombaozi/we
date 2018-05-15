@@ -30,22 +30,27 @@ public class UserController {
     private UserServiceImpl userService;
 
     @GetMapping("/login")
-    public ModelAndView login() {
-        return new ModelAndView("users/login");
+    public ModelAndView login(Model model) {
+        model.addAttribute("msg","请登录");
+        return new ModelAndView("users/login","Model",model);
     }
 
     @GetMapping("/loginout")
     public ModelAndView loginOut(Model model, HttpSession session) {
         if (session.getAttribute("user") == null) {
-            return new ModelAndView("/users/login");
+            model.addAttribute("msg","未登录，无法退出！");
+            return new ModelAndView("users/login","Model",model);
         }
         session.removeAttribute("user");
-        return new ModelAndView("users/login");
+
+        model.addAttribute("msg","退出登录成功！");
+        return new ModelAndView("users/login","Model",model);
     }
 
     @GetMapping("/register")
     public ModelAndView register(Model model) {
-        return new ModelAndView("users/register");
+        model.addAttribute("msg","注册");
+        return new ModelAndView("users/register","Model",model);
     }
 
 
@@ -73,9 +78,8 @@ public class UserController {
             model.addAttribute(response.getData());
             return new ModelAndView("redirect:/");
         } else {
-            System.out.println("登录失败");
             model.addAttribute("msg", response.getMsg());
-            return new ModelAndView("redirect:/users/login");
+            return new ModelAndView("users/login","Model",model);
         }
     }
 
@@ -84,8 +88,11 @@ public class UserController {
 
     ServerResponse<User> response = userService.register(user);
         if(response.isSuccess()){
-            return new ModelAndView("users/login");
+            model.addAttribute("msg",response.getMsg());
+            return new ModelAndView("users/login","Model",model);
         }
+
+        model.addAttribute("msg",response.getMsg());
         return new ModelAndView("redirect:/users/register");
     }
 
@@ -98,7 +105,8 @@ public class UserController {
                              HttpSession session) {
 
         if (session.getAttribute("user") == null) {
-            return new ModelAndView("/users/login");
+            model.addAttribute("msg","请登录");
+            return new ModelAndView("users/login","Model",model);
         }
         User user = (User) session.getAttribute("user");
 

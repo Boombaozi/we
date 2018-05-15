@@ -39,7 +39,8 @@ public class DayController {
                              HttpSession session) {
 
         if (session.getAttribute("user") == null) {
-            return new ModelAndView("/users/login");
+            model.addAttribute("msg","请登录");
+            return new ModelAndView("users/login","Model",model);
         }
 
         User user = (User) session.getAttribute("user");

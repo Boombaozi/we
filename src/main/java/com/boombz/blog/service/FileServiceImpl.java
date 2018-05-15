@@ -69,7 +69,7 @@ public class FileServiceImpl implements FileService {
         list = page.getContent();
         return list;
     }
-
+    //上传相册图片
     @Override
     @Transactional
     public File saveImage(File file, HttpSession session, HttpServletRequest request) {
@@ -93,7 +93,7 @@ public class FileServiceImpl implements FileService {
         Image image1 = imageRepository.save(image);
         return f;
     }
-
+    //头像上传
     @Override
     @Transactional
     public File saveUserImage(File file, HttpSession session,HttpServletRequest request) {
@@ -112,7 +112,7 @@ public class FileServiceImpl implements FileService {
         User user1 = userRepository.save(user);
         return f;
     }
-
+    //纪念日上传
     @Override
     @Transactional
     public File saveDayImage(File file, HttpSession session,

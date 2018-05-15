@@ -30,7 +30,7 @@ public class mainController {
         User user = (User) session.getAttribute("user");
         System.out.println(user.getRole());
         if (!user.getRole().equals("2")) {
-            return new ModelAndView("redirect:/");
+            return new ModelAndView("/error/role");
         }
         return new ModelAndView("adminindex/index");
     }

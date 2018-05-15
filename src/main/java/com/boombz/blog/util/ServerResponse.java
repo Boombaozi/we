@@ -1,11 +1,13 @@
 package com.boombz.blog.util;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 /**
  * @program: we
- * @description:
+ * @description:统一服务端的返回数据
  * @author: boombaozi.com
  * @create: 2018-04
  **/
@@ -36,20 +38,19 @@ public class ServerResponse<T>  {
         this.msg = msg;
     }
 
-    //@JsonIgnore
-    //使之不在json序列化结果当中
+    @JsonIgnore
     public boolean isSuccess() {
         return this.status;
     }
-
+    @JsonIgnore
     public boolean getStatus() {
         return status;
     }
-
+    @JsonIgnore
     public T getData() {
         return data;
     }
-
+    @JsonIgnore
     public String getMsg() {
         return msg;
     }

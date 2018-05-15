@@ -14,8 +14,12 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4 offset-md-4">
+            <div class="alert alert-dismissible alert-primary">
+                <button type="button" class="close" data-dismiss="alert"></button>
+                <strong th:text="*{Model.msg}?:_">通知信息</strong>
+            </div>
             <div class="login-panel panel panel-default">
-                <div class="panel-heading">注册</div>
+                <div class="panel-heading"></div>
                 <div class="panel-body">
 
                     <div id="a" hidden class="alert alert-dismissible alert-danger">

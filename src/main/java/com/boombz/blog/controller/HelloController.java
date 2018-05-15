@@ -28,13 +28,13 @@ public class HelloController {
 	 */
 	@GetMapping
 	public ModelAndView index(Model model,HttpSession session) {
+		//如果用户未登录，返回登录界面
 		if(session.getAttribute("user")==null){
-			return new ModelAndView("redirect:/users/login");
+			model.addAttribute("msg","请登录或注册");
+			return new ModelAndView("users/login","Model",model);
 		}
-		model.addAttribute("title", "we home");
-
-
-		return new ModelAndView("index/index", "indexModel", model);
+		//如果登录，转到主页
+		return new ModelAndView("index/index", "Model", model);
 	}
 
 

@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
     if(user==null){
         return ServerResponse.createByErrorMessage("参数为空或者错误");
     }else {
-        return ServerResponse.createBySuccess(user);
+        return ServerResponse.createBySuccess("注册成功",user);
     }
 
     }
