@@ -16,7 +16,7 @@ CREATE TABLE user
   question    VARCHAR(100) NULL             COMMENT '预留',
   answer      VARCHAR(100) NULL             COMMENT '预留',
   role        VARCHAR(1)   DEFAULT '1'      COMMENT '角色2-管理员,1-普通用户',
-  status VARCHAR(1) DEFAULT '1' COMMENT '类别状态1-正常'类别状态2-禁止登陆,
+  status VARCHAR(1) DEFAULT '1' COMMENT '类别状态1-正常'类别状态2-禁止登陆 类别状态0 未激活,
   createtime DATETIME     NOT NULL     COMMENT '创建时间',
   updatetime DATETIME     NOT NULL     COMMENT '最后一次更新时间',
   UNIQUE (username)
@@ -76,6 +76,18 @@ CREATE TABLE image
   image          VARCHAR(300)     NOT NULL,
   time           DATE              NULL,
   ischecked      VARCHAR(1) DEFAULT '1'            COMMENT '预留，1表示正常' ,
+  status VARCHAR(1) DEFAULT '1' COMMENT '类别状态1-正常',
+  createtime DATETIME     NOT NULL     COMMENT '创建时间',
+  updatetime DATETIME     NOT NULL     COMMENT '最后一次更新时间'
+);
+
+
+CREATE TABLE options
+(
+  id             INT AUTO_INCREMENT    PRIMARY KEY,
+  groupid        INT     NULL,
+  option_name  VARCHAR(191)   NOT NULL,
+  option_value LONGTEXT       NOT NULL,
   status VARCHAR(1) DEFAULT '1' COMMENT '类别状态1-正常',
   createtime DATETIME     NOT NULL     COMMENT '创建时间',
   updatetime DATETIME     NOT NULL     COMMENT '最后一次更新时间'

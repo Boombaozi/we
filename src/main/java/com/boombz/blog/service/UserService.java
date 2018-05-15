@@ -5,13 +5,16 @@ import com.boombz.blog.util.ServerResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public interface UserService {
 
     ServerResponse<User> login(String username, String password);
 
-    ServerResponse<User> register(User user);
+    ServerResponse<User> register(User user,HttpServletRequest request);
+
+    ServerResponse<User> register2(String code);
 
     ServerResponse<User> edit(User user);
 

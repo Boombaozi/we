@@ -3,14 +3,19 @@ package com.boombz.blog.service;
 import com.boombz.blog.domain.User;
 import com.boombz.blog.repository.UserRepository;
 import com.boombz.blog.util.ServerResponse;
+import com.boombz.blog.util.UUIDUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 
@@ -22,34 +27,125 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private JavaMailSender mailSender; //自动注入的Bean
+
+    @Value("${spring.mail.username}")
+    private String Sender;
+
     @Override
     public ServerResponse<User> login(String username, String password) {
         System.out.println("服务层"+username);
       User user=userRepository.findUserByUsernameAndPassword(username,password);
 
+      User Euser=userRepository.findUserByEmailAndPassword(username,password);
 
-       if (user!=null&& !user.getStatus().equals("2")){
-           return ServerResponse.createBySuccess(user);
-       }else {
-           return ServerResponse.createByErrorMessage("用户名或密码错误");
-       }
+      //如果结果都为空，说明密码错误或者用户名或者邮箱错误
+      if(user==null&& Euser==null){
+          return ServerResponse.createByErrorMessage("用户名或密码错误");
+      }
+      //如果user为空，说明用户使用邮箱登录
+      if(user==null){
+          if(Euser.getStatus().equals("0")){
+              return ServerResponse.createByErrorMessage("用户未激活，请查看邮件进行激活");
+          }
+          if (Euser.getStatus().equals("2")){
+              return ServerResponse.createByErrorMessage("已禁封账户");
+          }
+          else if(Euser.getStatus().equals("1")){
+              return ServerResponse.createBySuccess("登录成功",Euser);
+          }
+          else {
+              return ServerResponse.createByErrorMessage("用户状态异常");
+          }
+          //如果用户使用用户名密码登录
+      }else {
+          if(user.getStatus().equals("0")){
+              return ServerResponse.createByErrorMessage("用户未激活，请查看邮件进行激活");
+          }
+          if (user.getStatus().equals("2")){
+              return ServerResponse.createByErrorMessage("已禁封账户");
+          }
+          else if(user.getStatus().equals("1")){
+              return ServerResponse.createBySuccess("登录成功",user);
+          }
+          else {
+              return ServerResponse.createByErrorMessage("用户状态异常");
+          }
+
+
+      }
+
+
     }
 
     @Transactional
     @Override
-    public ServerResponse<User> register(User user) {
+    public ServerResponse<User> register(User user, HttpServletRequest request) {
         user.setCreatetime(new Date());
         user.setUpdatetime(new Date());
         user.setRole("1");
-        user.setStatus("1");
+        user.setStatus("0");
+        user.setCode(UUIDUtils.getUUID());
+
+        //查看邮箱是否注册
+        if(userRepository.findUserByEmail(user.getEmail())!=null){
+            return ServerResponse.createByErrorMessage("邮箱已经存在");
+        }
+        //查看用户名是否存在
+        if(userRepository.findUserByUsername(user.getUsername())!=null){
+            return ServerResponse.createByErrorMessage("用户名已经存在");
+        }
         user=  userRepository.save(user);
     if(user==null){
         return ServerResponse.createByErrorMessage("参数为空或者错误");
     }else {
-        return ServerResponse.createBySuccess("注册成功",user);
+
+
+        //发送验证邮件
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(Sender);
+            message.setTo(user.getEmail()); //自己给自己发送邮件
+            message.setSubject("来自WE的验证邮件");
+            String url = "http://" + request.getServerName() //服务器地址
+                    + ":"
+                    + request.getServerPort()//端口号
+                    + request.getContextPath()+"/users/register2";
+            message.setText("欢迎注册we账号 :) 请点击下面链接完成激活 "+url+"?code="+user.getCode());
+            mailSender.send(message);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            ServerResponse.createByErrorMessage("邮件发送失败");
+        }
+
+        return ServerResponse.createBySuccess("验证邮件发送成功，请查收",user);
     }
 
     }
+
+    @Transactional
+    @Override
+    public ServerResponse<User> register2(String code) {
+       User user = userRepository.findUserByCode(code);
+
+       //如果没找到这个邮箱验证码
+        if(user==null){
+            return ServerResponse.createByErrorMessage("验证码错误");
+        }else {
+            //激活用户
+            user.setStatus("1");
+            User user1 =  userRepository.save(user);
+            if(user1!=null){
+                return ServerResponse.createBySuccess("激活成功，请登录",user1);
+            }else {
+                return ServerResponse.createByErrorMessage("激活失败,请重试");
+            }
+        }
+
+    }
+
 
     @Override
     public ServerResponse<User> edit(User user) {

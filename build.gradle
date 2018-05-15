@@ -34,13 +34,13 @@ apply plugin: 'io.spring.dependency-management'
 
 jar {
 	baseName = 'we'
-	version = '0.7.0'
+	version = '0.8.0'
 }
 
 //组织名称
 group = 'com.boombz'
 //项目版本
-version = '0.6.0'
+version = '0.8.0'
 sourceCompatibility = 1.8
 
 repositories {
@@ -59,6 +59,7 @@ dependencies {
 	// 添加 Spring Data Mongodb 的依赖
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 
+	compile('org.springframework.boot:spring-boot-starter-mail')
 	// 添加  Spring Security 依赖
 	//compile('org.springframework.boot:spring-boot-starter-security')
 

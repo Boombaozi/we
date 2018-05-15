@@ -42,6 +42,17 @@ public class User implements Serializable {
     @Column
     private String question;
     @Column
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    @Column
     private String answer;
     @Column
     private String role;

@@ -137,6 +137,7 @@ public class CommentController {
         return new ModelAndView(async == true ? "comment/commentlist2 :: #commentlist" : "comment/comment2", "Model", model);
     }
 
+    //真正删除一个留言
     @GetMapping("/delete2/{id}")
     public ModelAndView realdeleteComment(@PathVariable("id") Integer id,HttpSession session){
         if (session.getAttribute("user") == null) {

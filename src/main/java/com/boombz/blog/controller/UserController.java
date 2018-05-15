@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -70,8 +71,6 @@ public class UserController {
 
         ServerResponse<User> response = userService.login(username, password);
 
-
-
         if (response.isSuccess()) {
             session.setAttribute("user", response.getData());
             System.out.println(username);
@@ -83,20 +82,36 @@ public class UserController {
         }
     }
 
+    //注册用户  存入一条新的用户数据，状态码设为“0” 表示未激活
     @PostMapping("/register")
-    public ModelAndView register(Model model,User user) {
+    public ModelAndView register(Model model, User user, HttpServletRequest request) {
 
-    ServerResponse<User> response = userService.register(user);
+    ServerResponse<User> response = userService.register(user,request);
+
         if(response.isSuccess()){
             model.addAttribute("msg",response.getMsg());
             return new ModelAndView("users/login","Model",model);
         }
-
         model.addAttribute("msg",response.getMsg());
-        return new ModelAndView("redirect:/users/register");
+        return new ModelAndView("users/register","Model",model);
     }
 
+    //激活用户    验证邮箱链接code 是否与数据库的匹配
+    @GetMapping("/register2")
+    public ModelAndView register2(Model model,String code) {
+     ServerResponse response= userService.register2(code);
 
+       if(response.isSuccess()){
+           model.addAttribute("msg",response.getMsg());
+           return new ModelAndView("users/login","Model",model);
+       }else {
+           model.addAttribute("msg",response.getMsg());
+           return new ModelAndView("users/login","Model",model);
+       }
+
+    }
+
+    //查看组内成员
     @GetMapping("/groupuser")
     public ModelAndView groupusers(@RequestParam(value = "async", required = false) boolean async,
                              @RequestParam(value = "pageIndex", required = false, defaultValue = "0") int pageIndex,
