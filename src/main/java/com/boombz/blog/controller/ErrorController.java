@@ -28,7 +28,6 @@ public class ErrorController extends AbstractErrorController{
     public ErrorController(ErrorAttributes errorAttributes, List<ErrorViewResolver> errorViewResolvers) {
         super(errorAttributes, errorViewResolvers);
     }
-
     @RequestMapping("/error")
     @Override
     public String getErrorPath() {
