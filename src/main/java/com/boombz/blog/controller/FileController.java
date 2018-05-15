@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 /**
  * @program: we
@@ -103,6 +104,32 @@ public class FileController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("File was not fount");
         }
 
+    }
+
+
+
+    @PostMapping("/day")
+    public String dayimage(@RequestParam("file") MultipartFile file,
+                           RedirectAttributes redirectAttributes,
+                           HttpServletRequest request,
+                           HttpSession session,
+                           String title,
+                           String content,
+                           Date time) {
+        try {
+            File f = new File(file.getOriginalFilename(), file.getContentType(), file.getSize(),
+                    new Binary(file.getBytes()));
+            f.setMd5(MD5Util.getMD5(file.getInputStream()));
+            fileService.saveDayImage(f,session,request,title,content,time);
+        } catch (IOException | NoSuchAlgorithmException ex) {
+            ex.printStackTrace();
+            redirectAttributes.addFlashAttribute("message", "Your " + file.getOriginalFilename() + " is wrong!");
+            return "redirect:/file";
+        }
+        redirectAttributes.addFlashAttribute("message",
+                "You successfully uploaded " + file.getOriginalFilename() + "!");
+
+        return "redirect:/day";
     }
 
 }

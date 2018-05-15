@@ -28,7 +28,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public ServerResponse<Page<Image>> findAllImageByGroupId(Integer integer, Pageable pageable) {
-     Page<Image>  images= imageRepository.findAllBygroupidAndStatusOrderByTimeDesc(integer,"1",pageable);
+     Page<Image>  images= imageRepository.findAllBygroupidAndStatusOrderByCreatetimeDesc(integer,"1",pageable);
        if(images!=null){
            return ServerResponse.createBySuccess(images);
        }else {

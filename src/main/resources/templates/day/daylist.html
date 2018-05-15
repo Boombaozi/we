@@ -17,7 +17,8 @@
                                 <div class="events-body">
                                     <div class="row">
                                         <div class="col-md-6 pull-left">
-                                            <img class="events-object img-fluid img-rounded"  th:src="${day.image}"/>
+                                            <img class="img-fluid img-rounded events-object "  th:src="${day.image}"/>
+                                            <!--<img class="events-object img-rounded" style="width: 200px;height: 200px;" th:src="${day.image}"/>-->
                                         </div>
                                         <div class="events-desc"  th:text="${day.content}" >
                                             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -65,14 +66,16 @@
                 </div>
             </div>
         </div>
+        <div th:replace="~{fragments/page :: page}">...</div>
     </div>
 
-    <div th:replace="~{fragments/page :: page}">...</div>
+
+    <script src="../../js/day/daylist.js" th:src="@{/js/day/daylist.js}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.VivaTimeline').vivaTimeline({
                 carousel: true,
-                carouselTime: 3000
+                carouselTime: 30000
             });
         });
     </script>

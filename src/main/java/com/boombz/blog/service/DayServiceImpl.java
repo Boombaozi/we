@@ -30,7 +30,6 @@ public class DayServiceImpl implements DayService {
         User user = (User) session.getAttribute("user");
         day.setAuthorid(user.getId());
         day.setGroupid(user.getGroupid());
-
         day.setCreatetime(new Date());
         day.setUpdatetime(new Date());
         day.setStatus("1");

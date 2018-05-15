@@ -34,13 +34,14 @@ public class ImageController {
     @GetMapping
     public ModelAndView list(@RequestParam(value = "async", required = false) boolean async,
                              @RequestParam(value = "pageIndex", required = false, defaultValue = "0") int pageIndex,
-                             @RequestParam(value = "pageSize", required = false, defaultValue = "20") int pageSize,
+                             @RequestParam(value = "pageSize", required = false, defaultValue = "6") int pageSize,
                              Model model,
                              HttpSession session) {
 
         if (session.getAttribute("user") == null) {
             return new ModelAndView("/users/login");
         }
+
 
         User user = (User) session.getAttribute("user");
 

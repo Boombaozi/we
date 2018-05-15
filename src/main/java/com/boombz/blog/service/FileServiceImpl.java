@@ -138,8 +138,9 @@ public class FileServiceImpl implements FileService {
         day.setTime(time);
         day.setContent(content);
         day.setGroupid(user.getGroupid());
-        System.out.println("更新的信息 :" + day);
-        dayRepository.save(day);
+        day.setAuthorid(user.getId());
+       System.out.println("更新的信息 :" + day.toString());
+        Day day1=  dayRepository.save(day);
         return f;
     }
 }

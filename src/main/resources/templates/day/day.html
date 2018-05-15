@@ -3,7 +3,11 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="../../static/css/bootstrap-grid.min.css" th:href="@{/css/bootstrap-grid.min.css}" rel="stylesheet">
+    <link href="../../static/css/bootstrap-reboot.min.css" th:href="@{/css/bootstrap-reboot.min.css}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link  th:href="@{/css/time/jquery.eeyellow.Timeline.css}" rel="stylesheet">
 </head>
 <body>
@@ -26,10 +30,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form role="form" action="/day/add" method="post">
+                    <form role="form" enctype="multipart/form-data" method="post" action="/file/day" >
                         <fieldset>
                             <div class="form-group">
+                                <input placeholder="纪念日名称" name="title" type="text"/>
+                                <input placeholder="日期:格式 年/月/日" name="time" type="text"/>
                                 <textarea class="form-control" placeholder="内容" id="exampleTextarea" name="content" type="text" rows="3"></textarea>
+                               图片<input type="file" name="file"/>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">取消
@@ -53,8 +60,9 @@
 
 
 
-    <div th:replace="~{fragments/footer :: footer}"> </div>
+
 </div>
+<div th:replace="~{fragments/footer :: footer}"> </div>
 
 <script src="../../js/day/day.js" th:src="@{/js/day/day.js}"></script>
 <script src="../../js/time/jquery.eeyellow.Timeline.js" th:src="@{/js/time/jquery.eeyellow.Timeline.js}"></script>

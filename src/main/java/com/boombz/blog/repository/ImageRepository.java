@@ -14,5 +14,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  **/
 public interface ImageRepository extends JpaRepository<Image,Integer> {
 
-    Page<Image> findAllBygroupidAndStatusOrderByTimeDesc(Integer groupid, String Status, Pageable pageable);
+    Page<Image> findAllBygroupidAndStatusOrderByCreatetimeDesc(Integer groupid, String Status, Pageable pageable);
 }
