@@ -10,42 +10,42 @@
 
 
 <div class="row">
-<div class="col-md-1 offset-md-3" >
-<button class="btn btn-outline-dark" data-toggle="modal" data-target="#myModal">
-    添加留言
-</button>
-<!-- 模态框（Modal） -->
-</div>
+    <div class="col-md-1 offset-md-3" >
+        <button class="btn btn-outline-dark" data-toggle="modal" data-target="#myModal">
+            添加留言
+        </button>
+        <!-- 模态框（Modal） -->
+    </div>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                </button>
-            </div>
-            <div class="modal-body">
-                <form role="form" action="/comment/add" method="post">
-                    <fieldset>
-                        <div class="form-group">
-                            <textarea class="form-control" placeholder="内容" id="exampleTextarea" name="content" type="text" rows="3"></textarea>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">取消
-                            </button>
-                            <input type="submit" class="btn btn-primary">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form role="form" action="/comment/add" method="post">
+                        <fieldset>
+                            <div class="form-group">
+                                <textarea class="form-control" placeholder="内容" id="exampleTextarea" name="content" type="text" rows="3"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消
+                                </button>
+                                <input type="submit" class="btn btn-primary">
 
-                            </input>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
+                                </input>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
 
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
 
-<div id="rightContainer" class="col-md-5 "></div>
+    <div id="rightContainer" class="col-md-5 "></div>
 </div>
 
 

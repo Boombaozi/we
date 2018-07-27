@@ -2,12 +2,14 @@ package com.boombz.blog.service;
 
 import com.boombz.blog.domain.Comment;
 import com.boombz.blog.util.ServerResponse;
+import com.boombz.blog.vo.CommentVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @program: we
@@ -32,5 +34,7 @@ public interface CommentService {
    ServerResponse<Page<Comment>> findCommentByGroupId2(Integer integer,Pageable pageable);
 
    ServerResponse<Comment> recoverComment(Integer integer);
+
+   ServerResponse<List<CommentVo>> findAllByGroupidAndStatus(Pageable pageable, Integer groupid, String status);
 
 }

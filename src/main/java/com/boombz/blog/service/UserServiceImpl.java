@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService {
 
         } catch (Exception e) {
             e.printStackTrace();
-            ServerResponse.createByErrorMessage("邮件发送失败");
+         return ServerResponse.createByErrorMessage("邮件发送失败");
         }
 
         return ServerResponse.createBySuccess("验证邮件发送成功，请查收",user);

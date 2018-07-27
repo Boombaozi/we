@@ -6,6 +6,7 @@ import com.boombz.blog.domain.User;
 import com.boombz.blog.service.CommentServiceImpl;
 import com.boombz.blog.service.UserServiceImpl;
 import com.boombz.blog.util.ServerResponse;
+import com.boombz.blog.vo.CommentVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

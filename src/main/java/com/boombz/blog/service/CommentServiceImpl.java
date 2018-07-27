@@ -4,8 +4,10 @@ import com.boombz.blog.domain.Comment;
 import com.boombz.blog.domain.User;
 import com.boombz.blog.repository.CommentRepository;
 import com.boombz.blog.util.ServerResponse;
+import com.boombz.blog.vo.CommentVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -109,5 +112,10 @@ public class CommentServiceImpl implements CommentService {
         comment.setUpdatetime(new Date());
         commentRepository.save(comment);
         return ServerResponse.createBySuccessMessage("恢复成功");
+    }
+
+    @Override
+    public ServerResponse<List<CommentVo>> findAllByGroupidAndStatus(Pageable pageable, Integer groupid, String status) {
+        return ServerResponse.createBySuccess(commentRepository.find_All());
     }
 }
