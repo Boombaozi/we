@@ -2,6 +2,7 @@ package com.boombz.blog.controller;
 
 import com.boombz.blog.domain.Image;
 import com.boombz.blog.domain.User;
+import com.boombz.blog.kafka.Producter;
 import com.boombz.blog.service.ImageService;
 import com.boombz.blog.util.ServerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ import java.util.List;
 public class ImageController {
 
     @Autowired
+    private Producter producter;
+    @Autowired
     private ImageService service;
 
     @GetMapping
@@ -39,19 +42,19 @@ public class ImageController {
                              HttpSession session) {
 
         if (session.getAttribute("user") == null) {
-            model.addAttribute("msg","请登录");
-            return new ModelAndView("users/login","Model",model);
+            model.addAttribute("msg", "请登录");
+            return new ModelAndView("users/login", "Model", model);
         }
 
 
         User user = (User) session.getAttribute("user");
-
+        producter.sendSuccessAccess(user, "浏览相册", "/");
 
         if (async == true) {
             Pageable pageable = new PageRequest(pageIndex, pageSize);
             ServerResponse<Page<Image>> response = service.findAllImageByGroupId(user.getGroupid(), pageable);
-            Page<Image> page= response.getData();
-            List<Image> list= page.getContent();// 当前所在页面数据列表
+            Page<Image> page = response.getData();
+            List<Image> list = page.getContent();// 当前所在页面数据列表
             model.addAttribute("title", "纪念日");
             model.addAttribute("page", page);
             model.addAttribute("imagelist", list);

@@ -2,6 +2,7 @@ package com.boombz.blog.controller;
 
 import com.boombz.blog.domain.Day;
 import com.boombz.blog.domain.User;
+import com.boombz.blog.kafka.Producter;
 import com.boombz.blog.service.DayServiceImpl;
 import com.boombz.blog.util.ServerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ import java.util.List;
 public class DayController {
 
     @Autowired
+    private Producter producter;
+    @Autowired
     private DayServiceImpl dayService;
 
     @GetMapping
@@ -45,6 +48,7 @@ public class DayController {
 
         User user = (User) session.getAttribute("user");
 
+        producter.sendSuccessAccess(user,"浏览纪念日","/");
 
         if (async == true) {
             Pageable pageable = new PageRequest(pageIndex, pageSize);

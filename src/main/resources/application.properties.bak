@@ -21,6 +21,19 @@ spring.mail.properties.mail.smtp.starttls.enable=true
 spring.mail.properties.mail.smtp.starttls.required=true
 
 
+
+
+spring.data.mongodb.uri=mongodb://1.1.1.1:27017/test
+
+#kafka
+kafka.topic=test
+spring.kafka.listener.concurrency=10
+spring.kafka.bootstrap-servers=1.1.1.1:9092
+spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.producer.value-serializer=org.apache.kafka.common.serialization.StringSerializer
+spring.kafka.consumer.group-id=test-consumer-group
+spring.kafka.producer.bootstrap-servers=1.1.1.1:9092
+
 # limit upload file size
 #spring.http.multipart.max-file-size=1024KB
 #spring.http.multipart.max-request-size=1024KB

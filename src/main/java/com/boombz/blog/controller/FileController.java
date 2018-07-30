@@ -1,6 +1,7 @@
 package com.boombz.blog.controller;
 
 import com.boombz.blog.domain.File;
+import com.boombz.blog.kafka.Producter;
 import com.boombz.blog.service.FileService;
 import com.boombz.blog.util.MD5Util;
 import org.bson.types.Binary;
@@ -30,6 +31,8 @@ import java.util.Date;
 @RequestMapping("/file")
 public class FileController {
 
+    @Autowired
+    private Producter producter;
     @Autowired
     private FileService fileService;
 
@@ -126,6 +129,8 @@ public class FileController {
             redirectAttributes.addFlashAttribute("message", "Your " + file.getOriginalFilename() + " is wrong!");
             return "redirect:/file";
         }
+
+
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 

@@ -5,6 +5,7 @@ import com.boombz.blog.domain.Day;
 import com.boombz.blog.domain.File;
 import com.boombz.blog.domain.Image;
 import com.boombz.blog.domain.User;
+import com.boombz.blog.kafka.Producter;
 import com.boombz.blog.repository.DayRepository;
 import com.boombz.blog.repository.FileRepository;
 import com.boombz.blog.repository.ImageRepository;
@@ -30,6 +31,8 @@ import java.util.List;
 @Service
 public class FileServiceImpl implements FileService {
 
+    @Autowired
+    private Producter producter;
     @Autowired
     public FileRepository fileRepository;
 
@@ -91,6 +94,7 @@ public class FileServiceImpl implements FileService {
         image.setGroupid(user.getGroupid());
         System.out.println("更新的信息 :" + image);
         Image image1 = imageRepository.save(image);
+        producter.sendSuccessInsert(user,"上传相册图片","/");
         return f;
     }
     //头像上传
@@ -110,6 +114,7 @@ public class FileServiceImpl implements FileService {
         user.setUpdatetime(new Date());
         System.out.println("更新的信息 :" + user);
         User user1 = userRepository.save(user);
+        producter.sendSuccessInsert(user,"上传头像图片","/");
         return f;
     }
     //纪念日上传
@@ -141,6 +146,7 @@ public class FileServiceImpl implements FileService {
         day.setAuthorid(user.getId());
        System.out.println("更新的信息 :" + day.toString());
         Day day1=  dayRepository.save(day);
+        producter.sendSuccessInsert(user,"增加纪念日及图片","/");
         return f;
     }
 }

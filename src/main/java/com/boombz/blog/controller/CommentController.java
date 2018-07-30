@@ -55,6 +55,7 @@ public class CommentController {
         User user = (User) session.getAttribute("user");
         logger.info("请求的页面:{},页面大小:{}", pageIndex, pageSize);
 
+        producter.sendSuccessAccess(user,"浏览留言板","/");
         if (async == true) {
             logger.info("async:{}", async);
             Pageable pageable = new PageRequest(pageIndex, pageSize);
@@ -97,7 +98,7 @@ public class CommentController {
         ServerResponse<Comment> serverResponse =commentService.deleteCommentById(id);
         System.out.println(id);
         if(serverResponse.isSuccess()){
-            producter.sendSuccessDelete((User)session.getAttribute("user"),"留言放入回收站",request.getRequestURI());
+            producter.sendSuccessUpdate((User)session.getAttribute("user"),"留言放入回收站",request.getRequestURI());
             return new ModelAndView("redirect:/comment");
         }else {
             return new ModelAndView("redirect:/comment");
@@ -111,6 +112,8 @@ public class CommentController {
         }
         ServerResponse<Comment> serverResponse =commentService.recoverComment(id);
         if(serverResponse.isSuccess()){
+            producter.sendSuccessUpdate((User)session.getAttribute("user"),"留言移出回收站","/");
+
             return new ModelAndView("redirect:/comment/deletelist");
         }else {
             return new ModelAndView("redirect:/comment/deletelist");

@@ -34,7 +34,7 @@ apply plugin: 'io.spring.dependency-management'
 
 jar {
 	baseName = 'we'
-	version = '0.8.2'
+	version = '0.8.5'
 }
 
 //组织名称

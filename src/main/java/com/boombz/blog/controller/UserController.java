@@ -45,6 +45,8 @@ public class UserController {
             model.addAttribute("msg", "未登录，无法退出！");
             return new ModelAndView("users/login", "Model", model);
         }
+
+        producter.sendSuccess((User)session.getAttribute("user"),"退出登录","/");
         session.removeAttribute("user");
 
         model.addAttribute("msg", "退出登录成功！");
@@ -100,6 +102,9 @@ public class UserController {
         ServerResponse<User> response = userService.register(user, request);
 
         if (response.isSuccess()) {
+
+            producter.sendSuccess(user,"发送注册邮件",request.getRequestURI());
+
             model.addAttribute("msg", response.getMsg());
             return new ModelAndView("users/login", "Model", model);
         }
@@ -113,6 +118,9 @@ public class UserController {
         ServerResponse response = userService.register2(code);
 
         if (response.isSuccess()) {
+
+           producter.sendSuccessRegister((User) response.getData(),"新用户注册");
+
             model.addAttribute("msg", response.getMsg());
             return new ModelAndView("users/login", "Model", model);
         } else {
@@ -135,6 +143,8 @@ public class UserController {
             return new ModelAndView("users/login", "Model", model);
         }
         User user = (User) session.getAttribute("user");
+
+        producter.sendSuccessAccess(user,"查看组内成员","/");
 
         if (async == true) {
             Pageable pageable = new PageRequest(pageIndex, pageSize);
