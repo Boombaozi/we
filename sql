@@ -36,17 +36,20 @@ CREATE TABLE comment
   updatetime DATETIME     NOT NULL     COMMENT '最后一次更新时间'
 );
 
-CREATE TABLE group
-(
-  id          INT    AUTO_INCREMENT   PRIMARY KEY,
-  type         VARCHAR(1) DEFAULT '1'   COMMENT '组类型，扩展预留',
-  groupname   VARCHAR(50)  NOT NULL             COMMENT '组名称',
-  createby    INT          NOT NULL             COMMENT '创建该组的用户',
-  status      VARCHAR(1) DEFAULT '1' COMMENT '类别状态1-正常',
-  groupcheck    VARCHAR(50)   NULL         COMMENT'验证数字',
-  createtime DATETIME     NOT NULL     COMMENT '创建时间',
-  updatetime DATETIME     NOT NULL     COMMENT '最后一次更新时间'
-);
+
+//group 是mysql关键字，，，无法使用
+
+CREATE TABLE group2
+  (
+    id          INT    AUTO_INCREMENT   PRIMARY KEY,
+    type         VARCHAR(1) DEFAULT '1'   COMMENT '组类型，扩展预留',
+    groupname   VARCHAR(50)  NOT NULL             COMMENT '组名称',
+    createby    INT          NOT NULL             COMMENT '创建该组的用户',
+    status      VARCHAR(1) DEFAULT '1' COMMENT '类别状态1-正常',
+    groupcheck    VARCHAR(50)   NULL         COMMENT'验证数字',
+    createtime DATETIME     NOT NULL     COMMENT '创建时间',
+    updatetime DATETIME     NOT NULL     COMMENT '最后一次更新时间'
+  );
 
 CREATE TABLE day
 (

@@ -3,6 +3,7 @@ package com.boombz.blog.controller;
 import com.boombz.blog.domain.User;
 
 
+import com.boombz.blog.kafka.Producter;
 import com.boombz.blog.service.UserServiceImpl;
 import com.boombz.blog.util.ServerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,30 +29,32 @@ import java.util.List;
 public class UserController {
 
     @Autowired
+    private Producter producter;
+    @Autowired
     private UserServiceImpl userService;
 
     @GetMapping("/login")
     public ModelAndView login(Model model) {
-        model.addAttribute("msg","请登录");
-        return new ModelAndView("users/login","Model",model);
+        model.addAttribute("msg", "请登录");
+        return new ModelAndView("users/login", "Model", model);
     }
 
     @GetMapping("/loginout")
     public ModelAndView loginOut(Model model, HttpSession session) {
         if (session.getAttribute("user") == null) {
-            model.addAttribute("msg","未登录，无法退出！");
-            return new ModelAndView("users/login","Model",model);
+            model.addAttribute("msg", "未登录，无法退出！");
+            return new ModelAndView("users/login", "Model", model);
         }
         session.removeAttribute("user");
 
-        model.addAttribute("msg","退出登录成功！");
-        return new ModelAndView("users/login","Model",model);
+        model.addAttribute("msg", "退出登录成功！");
+        return new ModelAndView("users/login", "Model", model);
     }
 
     @GetMapping("/register")
     public ModelAndView register(Model model) {
-        model.addAttribute("msg","注册");
-        return new ModelAndView("users/register","Model",model);
+        model.addAttribute("msg", "注册");
+        return new ModelAndView("users/register", "Model", model);
     }
 
 
@@ -73,12 +76,20 @@ public class UserController {
 
         if (response.isSuccess()) {
             session.setAttribute("user", response.getData());
-            System.out.println(username);
+
+
+            producter.sendSuccessLogin(response.getData(),"用户登录成功");
+
+
             model.addAttribute(response.getData());
             return new ModelAndView("redirect:/");
         } else {
+            User user=new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            producter.sendErrorLogin(user,"用户登录失败");
             model.addAttribute("msg", response.getMsg());
-            return new ModelAndView("users/login","Model",model);
+            return new ModelAndView("users/login", "Model", model);
         }
     }
 
@@ -86,48 +97,48 @@ public class UserController {
     @PostMapping("/register")
     public ModelAndView register(Model model, User user, HttpServletRequest request) {
 
-    ServerResponse<User> response = userService.register(user,request);
+        ServerResponse<User> response = userService.register(user, request);
 
-        if(response.isSuccess()){
-            model.addAttribute("msg",response.getMsg());
-            return new ModelAndView("users/login","Model",model);
+        if (response.isSuccess()) {
+            model.addAttribute("msg", response.getMsg());
+            return new ModelAndView("users/login", "Model", model);
         }
-        model.addAttribute("msg",response.getMsg());
-        return new ModelAndView("users/register","Model",model);
+        model.addAttribute("msg", response.getMsg());
+        return new ModelAndView("users/register", "Model", model);
     }
 
     //激活用户    验证邮箱链接code 是否与数据库的匹配
     @GetMapping("/register2")
-    public ModelAndView register2(Model model,String code) {
-     ServerResponse response= userService.register2(code);
+    public ModelAndView register2(Model model, String code) {
+        ServerResponse response = userService.register2(code);
 
-       if(response.isSuccess()){
-           model.addAttribute("msg",response.getMsg());
-           return new ModelAndView("users/login","Model",model);
-       }else {
-           model.addAttribute("msg",response.getMsg());
-           return new ModelAndView("users/login","Model",model);
-       }
+        if (response.isSuccess()) {
+            model.addAttribute("msg", response.getMsg());
+            return new ModelAndView("users/login", "Model", model);
+        } else {
+            model.addAttribute("msg", response.getMsg());
+            return new ModelAndView("users/login", "Model", model);
+        }
 
     }
 
     //查看组内成员
     @GetMapping("/groupuser")
     public ModelAndView groupusers(@RequestParam(value = "async", required = false) boolean async,
-                             @RequestParam(value = "pageIndex", required = false, defaultValue = "0") int pageIndex,
-                             @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
-                             Model model,
-                             HttpSession session) {
+                                   @RequestParam(value = "pageIndex", required = false, defaultValue = "0") int pageIndex,
+                                   @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
+                                   Model model,
+                                   HttpSession session) {
 
         if (session.getAttribute("user") == null) {
-            model.addAttribute("msg","请登录");
-            return new ModelAndView("users/login","Model",model);
+            model.addAttribute("msg", "请登录");
+            return new ModelAndView("users/login", "Model", model);
         }
         User user = (User) session.getAttribute("user");
 
         if (async == true) {
             Pageable pageable = new PageRequest(pageIndex, pageSize);
-            ServerResponse<Page<User>> response = userService.findUserbygroupid(user.getGroupid(),pageable);
+            ServerResponse<Page<User>> response = userService.findUserbygroupid(user.getGroupid(), pageable);
             Page<User> users = response.getData();
             List<User> list = users.getContent();// 当前所在页面数据列表
             System.out.println(list.get(0).toString());

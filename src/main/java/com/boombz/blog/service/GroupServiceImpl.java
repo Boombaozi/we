@@ -1,9 +1,11 @@
 package com.boombz.blog.service;
 
-import com.boombz.blog.domain.Group;
+
+import com.boombz.blog.domain.Group2;
 import com.boombz.blog.domain.User;
 import com.boombz.blog.repository.GroupRepository;
 import com.boombz.blog.util.ServerResponse;
+import com.boombz.blog.util.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,10 +19,9 @@ public class GroupServiceImpl implements  GroupService {
     @Autowired
     private GroupRepository groupRepository;
 
-
     @Override
-    public ServerResponse<Page<Group>> findAllGroup(Pageable pageable) {
-     Page<Group> groups = groupRepository.findAll(pageable);
+    public ServerResponse<Page<Group2>> findAllGroup(Pageable pageable) {
+     Page<Group2> groups = groupRepository.findAll(pageable);
      if(groups!=null) {
          return ServerResponse.createBySuccess(groups);
      }
@@ -31,10 +32,10 @@ public class GroupServiceImpl implements  GroupService {
 
     @Override
     public ServerResponse deleteGroupById(Integer id) {
-      Group group=  groupRepository.findOne(id);
+      Group2 group=  groupRepository.findOne(id);
         group.setStatus("2");
         group.setUpdatetime(new Date());
-      Group group1 = groupRepository.save(group);
+      Group2 group1 = groupRepository.save(group);
         if(group1!=null) {
             return ServerResponse.createBySuccessMessage("删除成功");
         }
@@ -44,15 +45,15 @@ public class GroupServiceImpl implements  GroupService {
     }
 
     @Override
-    public ServerResponse<Group> addGroup(Group group, HttpSession session) {
+    public ServerResponse<Group2> addGroup(Group2 group, HttpSession session) {
         group.setUpdatetime(new Date());
         group.setCreatetime(new Date());
         group.setStatus("1");
-        group.setGroupcheck("1");
+        group.setGroupcheck(UUIDUtils.getUUID());
         User user= (User) session.getAttribute("user");
         group.setCreateby(user.getId());
 
-     Group group1=   groupRepository.save(group);
+     Group2 group1=   groupRepository.save(group);
         if(group1!=null) {
             return ServerResponse.createBySuccessMessage("新建成功");
         }
@@ -63,9 +64,9 @@ public class GroupServiceImpl implements  GroupService {
     }
 
     @Override
-    public ServerResponse<Group> updateGroup(Group group) {
+    public ServerResponse<Group2> updateGroup(Group2 group) {
         group.setUpdatetime(new Date());
-        Group group1=   groupRepository.save(group);
+        Group2 group1=   groupRepository.save(group);
         if(group1!=null) {
             return ServerResponse.createBySuccessMessage("更新成功");
         }
@@ -83,10 +84,10 @@ public class GroupServiceImpl implements  GroupService {
 
     @Override
     public ServerResponse recoverGroupById(Integer id) {
-        Group group=  groupRepository.findOne(id);
+        Group2 group=  groupRepository.findOne(id);
         group.setStatus("1");
         group.setUpdatetime(new Date());
-        Group group1 = groupRepository.save(group);
+        Group2 group1 = groupRepository.save(group);
         if(group1!=null) {
             return ServerResponse.createBySuccessMessage("恢复成功");
         }

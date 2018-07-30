@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * @program: we
- * @description:
+ * @description:全局错误处理
  * @author: boombaozi.com
  * @create: 2018-05
  **/

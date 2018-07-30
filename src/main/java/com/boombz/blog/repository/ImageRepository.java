@@ -1,6 +1,6 @@
 package com.boombz.blog.repository;
 
-import com.boombz.blog.domain.Group;
+import com.boombz.blog.domain.Group2;
 import com.boombz.blog.domain.Image;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -18,13 +18,13 @@ import java.util.Date;
 //        updatetime DATETIME     NOT NULL     COMMENT '最后一次更新时间'
 //        );
 @Entity
-public class Group implements Serializable {
+public class Group2{
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
     @Column
-    private Integer type;
+    private Character type;
     @Column
     private String groupname;
     @Column
@@ -46,11 +46,11 @@ public class Group implements Serializable {
         this.id = id;
     }
 
-    public Integer getType() {
+    public Character getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(Character type) {
         this.type = type;
     }
 

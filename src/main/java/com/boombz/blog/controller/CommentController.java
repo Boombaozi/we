@@ -3,6 +3,7 @@ package com.boombz.blog.controller;
 
 import com.boombz.blog.domain.Comment;
 import com.boombz.blog.domain.User;
+import com.boombz.blog.kafka.Producter;
 import com.boombz.blog.service.CommentServiceImpl;
 import com.boombz.blog.service.UserServiceImpl;
 import com.boombz.blog.util.ServerResponse;
@@ -29,7 +30,11 @@ public class CommentController {
     @Autowired
     private CommentServiceImpl commentService;
 
+    @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    private Producter producter;
 
     /**
     * @description: /comment :Post  如果非异步请求，返回页面主体，然后通过JS异步请求，返回要异步加载的列表
@@ -74,6 +79,9 @@ public class CommentController {
         }
       ServerResponse<Comment> serverResponse=commentService.addComment(comment,session,request);
       if(serverResponse.isSuccess()){
+
+          producter.sendSuccessInsert((User)session.getAttribute("user"),"新增留言",request.getRequestURI());
+
           return new ModelAndView("redirect:/comment");
       }else {
           return new ModelAndView("redirect:/comment");
@@ -82,13 +90,14 @@ public class CommentController {
     }
 
     @GetMapping("/delete/{id}")
-    public ModelAndView deleteComment(@PathVariable("id") Integer id,HttpSession session){
+    public ModelAndView deleteComment(@PathVariable("id") Integer id,HttpSession session,HttpServletRequest request){
         if (session.getAttribute("user") == null) {
             return new ModelAndView("/users/login");
         }
         ServerResponse<Comment> serverResponse =commentService.deleteCommentById(id);
         System.out.println(id);
         if(serverResponse.isSuccess()){
+            producter.sendSuccessDelete((User)session.getAttribute("user"),"留言放入回收站",request.getRequestURI());
             return new ModelAndView("redirect:/comment");
         }else {
             return new ModelAndView("redirect:/comment");
@@ -140,12 +149,13 @@ public class CommentController {
 
     //真正删除一个留言
     @GetMapping("/delete2/{id}")
-    public ModelAndView realdeleteComment(@PathVariable("id") Integer id,HttpSession session){
+    public ModelAndView realdeleteComment(@PathVariable("id") Integer id,HttpSession session,HttpServletRequest request){
         if (session.getAttribute("user") == null) {
             return new ModelAndView("/users/login");
         }
         ServerResponse<Comment> serverResponse =commentService.realdeleteCommentById(id);
         if(serverResponse.isSuccess()){
+            producter.sendSuccessDelete((User)session.getAttribute("user"),"真正删除留言",request.getRequestURI());
             return new ModelAndView("redirect:/comment/deletelist");
         }else {
             return new ModelAndView("redirect:/comment/deletelist");

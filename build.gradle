@@ -40,7 +40,7 @@ jar {
 //组织名称
 group = 'com.boombz'
 //项目版本
-version = '0.8.2'
+version = '0.8.3'
 sourceCompatibility = 1.8
 
 repositories {
@@ -57,6 +57,10 @@ dependencies {
 
 // https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
 	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.1'
+// https://mvnrepository.com/artifact/org.projectlombok/lombok
+// https://mvnrepository.com/artifact/org.projectlombok/lombok
+	compile group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
+
 
 	// 添加 Thymeleaf 的依赖
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
@@ -70,9 +74,15 @@ dependencies {
 
 	// 添加 Spring Boot 开发工具依赖
 	//compile("org.springframework.boot:spring-boot-devtools")
+// https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka
+	compile group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.1.0.RELEASE'
+// https://mvnrepository.com/artifact/com.google.code.gson/gson
+	compile group: 'com.google.code.gson', name: 'gson', version: '2.8.0'
 
 	// 添加 Spring Data JPA 的依赖
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+// https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients
+	compile group: 'org.apache.kafka', name: 'kafka-clients', version: '1.0.0'
 
 	// 添加 MySQL连接驱动 的依赖
 	compile('mysql:mysql-connector-java:6.0.5')

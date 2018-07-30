@@ -29,16 +29,16 @@ public class UserServiceTest {
 
     @Test
     public void register() throws Exception {
-        User user=new User();
-        user.setCreatetime(new Date());
-        user.setUpdatetime(new Date());
-        user.setRole("1");
-        user.setStatus("1");
-        user.setGroupid(100);
-        user.setUsername("测试用户");
-        user.setPassword("密码");
-        ServerResponse<User> a= userService.register(user);
-        Assert.assertEquals(a.isSuccess(),true);
+//        User user=new User();
+//        user.setCreatetime(new Date());
+//        user.setUpdatetime(new Date());
+//        user.setRole("1");
+//        user.setStatus("1");
+//        user.setGroupid(100);
+//        user.setUsername("测试用户");
+//        user.setPassword("密码");
+//        ServerResponse<User> a= userService.register(user);
+//        Assert.assertEquals(a.isSuccess(),true);
     }
 
     @Test

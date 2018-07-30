@@ -1,11 +1,13 @@
 package com.boombz.blog.service;
 
+import com.boombz.blog.domain.Group2;
 import com.boombz.blog.domain.User;
+import com.boombz.blog.repository.GroupRepository;
 import com.boombz.blog.repository.UserRepository;
 import com.boombz.blog.util.ServerResponse;
 import com.boombz.blog.util.UUIDUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -19,16 +21,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
-    private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private JavaMailSender mailSender; //自动注入的Bean
+
+    @Autowired
+    private GroupRepository groupRepository;
 
     @Value("${spring.mail.username}")
     private String Sender;
@@ -159,9 +165,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ServerResponse addGroup(User user) {
-
+    public ServerResponse addGroup(User user,String checkcode) {
         user.setUpdatetime(new Date());
+
+
+        Group2 group=groupRepository.findByGroupcheckAndStatus(checkcode,"1");
+
+
+        if(group==null){
+            return ServerResponse.createByErrorMessage("组验证码错误");
+        }else {
+            user.setGroupid(group.getId());
+        }
+        System.out.println(user.toString());
        User user1= userRepository.save(user);
         if(user1==null){
             return ServerResponse.createByErrorMessage("修改失败");

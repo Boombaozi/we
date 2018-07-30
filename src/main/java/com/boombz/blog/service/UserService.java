@@ -18,7 +18,7 @@ public interface UserService {
 
     ServerResponse<User> edit(User user);
 
-    ServerResponse  addGroup(User user);
+    ServerResponse  addGroup(User user,String checkcode);
 
     ServerResponse<Page<User>> userList(Pageable pageable);
 
